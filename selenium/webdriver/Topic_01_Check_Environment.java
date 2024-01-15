@@ -10,9 +10,9 @@ public class Topic_01_Check_Environment {
     WebDriver driver;
 
     @Test
-    public void TC_01_Run_On_Firefox() {
+    public void TC_01_Run_On_Edge() {
         driver = new FirefoxDriver();
-        driver.get("https://www.facebook.com/");
+        driver.get("https://www.google.com/maps");
         driver.quit();
     }
 
@@ -24,7 +24,7 @@ public class Topic_01_Check_Environment {
     }
 
     @Test
-    public void TC_03_Run_On_Edge() {
+    public void TC_03_Run_On_Firefox() {
         driver = new EdgeDriver();
         driver.get("https://www.facebook.com/");
         driver.quit();
