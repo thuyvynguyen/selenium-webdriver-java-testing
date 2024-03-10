@@ -2,6 +2,7 @@ package webdriver;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.locators.RelativeLocator;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -13,7 +14,7 @@ public class Topic_02_Selenium_Locator {
     @BeforeClass
     public void initialBrowser(){
         driver = new FirefoxDriver();
-        driver.get("https://demo.nopcommerce.com/register");
+        driver.get("https://tiki.vn/");
     }
 
     @Test
@@ -85,6 +86,39 @@ public class Topic_02_Selenium_Locator {
 
         driver.findElements(By.xpath("//label"));
         driver.findElements(By.xpath("//input"));
+    }
+
+    @Test
+    public void TC_09_Relative_Locatior(){
+        driver = new FirefoxDriver();
+        driver.get("https://demo.nopcommerce.com/login");
+
+        //Element/ By A
+        By passwordTextBoxBy = By.cssSelector("input#Password");
+
+        //Element/ By B
+        By rememberMeCheckboxBy = By.id("RememberMe");
+
+        //Element/ By C
+        By forgotPasswordLinkBy = By.cssSelector("span.forgot-password");
+
+        //Element/ By D
+        By loginButtonBy = By.cssSelector("button.login-button");
+
+        //Element/ By E
+        driver.findElement(RelativeLocator.with(By.tagName("label"))
+                .above(loginButtonBy)
+                .below(passwordTextBoxBy)
+                .toRightOf(rememberMeCheckboxBy)
+                .toLeftOf(forgotPasswordLinkBy));
+    }
+
+    @Test
+    public void TC_10_Locator_Priority(){
+        /*driver = new FirefoxDriver();
+        driver.get("");*/
+
+        driver.findElement(By.xpath("//input[@data-view-id='main_search_form_input']"));
     }
 
     @AfterClass
