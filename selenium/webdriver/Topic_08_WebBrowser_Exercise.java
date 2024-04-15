@@ -29,6 +29,20 @@ public class Topic_08_WebBrowser_Exercise {
         Assert.assertEquals(driver.getCurrentUrl(),"http://live.techpanda.org/index.php/customer/account/create/");
     }
 
+    @Test
+    public void TC_02_Title(){
+        driver.get("http://live.techpanda.org/");
+
+        driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
+
+        Assert.assertEquals(driver.getTitle(),"Customer Login");
+
+        driver.findElement(By.xpath("//span[text()='Create an Account']")).click();
+
+        Assert.assertEquals(driver.getTitle(),"Create New Customer Account");
+    }
+
+
     @AfterClass
     public void cleanBrowser(){
         driver.quit();
