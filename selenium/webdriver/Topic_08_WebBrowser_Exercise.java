@@ -20,7 +20,10 @@ public class Topic_08_WebBrowser_Exercise {
     public void TC_01_Verify_URL(){
         driver.get("http://live.techpanda.org/");
 
-        driver.findElement(By.xpath("//div[@class='footer']//a[text()='My Account']")).click();
+
+
+
+
 
         Assert.assertEquals(driver.getCurrentUrl(),"http://live.techpanda.org/index.php/customer/account/login/");
 
