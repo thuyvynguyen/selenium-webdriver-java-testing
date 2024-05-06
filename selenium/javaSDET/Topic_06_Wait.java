@@ -3,7 +3,6 @@ package javaSDET;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,14 +12,14 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 public class Topic_06_Wait {
-    WebDriver driver;
+    WebDriver driver; // declare variable driver, but drive is still null
     WebDriverWait explicitWait;
     FluentWait<WebDriver> fluentWait; // Java Generic
 
     @BeforeClass
     //implicitWait
     public void initialBrowser(){
-        driver = new FirefoxDriver();
+        driver = new FirefoxDriver(); // initial value for driver
         driver.get("https://demo.nopcommerce.com/register?returnUrl=%2F");
 
         //1, Implicit Wait: only use for findEmplement(s)
