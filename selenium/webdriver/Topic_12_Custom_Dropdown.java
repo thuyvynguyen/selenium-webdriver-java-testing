@@ -57,6 +57,9 @@ public class Topic_12_Custom_Dropdown {
         driver.get("https://react.semantic-ui.com/maximize/dropdown-example-search-selection/");
         enterItemInCustomDropdown("input.search","span.text", "Andorra");
         Assert.assertEquals(driver.findElement(By.cssSelector("div.divider.text")).getText(),"Andorra");
+
+        enterItemInCustomDropdown("input.search","span.text", "Belgium");
+        Assert.assertEquals(driver.findElement(By.cssSelector("div.divider.text")).getText(),"Belgium");
     }
     private void selectItemInCustomDropdown (String parentCss, String childCss, String textItem) throws InterruptedException{
         //These steps to work with dropdown
@@ -82,7 +85,9 @@ public class Topic_12_Custom_Dropdown {
         //These steps to work with dropdown
         //1, Wait for icon in dropdown display
         //2, Input to text box
-        explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(parentCss))).sendKeys(textItem);
+        WebElement dropbox = explicitWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(parentCss)));
+        dropbox.clear();
+        dropbox.sendKeys(textItem);
         Thread.sleep(2000);
 
         //3, Wait for all values of dropdown list presence
