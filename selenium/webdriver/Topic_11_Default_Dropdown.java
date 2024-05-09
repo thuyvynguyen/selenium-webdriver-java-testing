@@ -34,43 +34,60 @@ public class Topic_11_Default_Dropdown {
     }
 
     @Test
-    public void TC_04_HTML_DropdownList_01(){
-        driver.get("https://demo.nopcommerce.com");
+    public void TC_02_NopCommerce(){
+        driver.get("https://demo.nopcommerce.com/");
 
-        /*driver.findElement(By.xpath("//a[text()='Register']")).click();
+        //Register
+        driver.findElement(By.cssSelector("a.ico-register")).click();
+        //driver.findElement(By.xpath("//a[text()='Register']")).click();
 
         driver.findElement(By.cssSelector("input#gender-female")).click();
         driver.findElement(By.cssSelector("input#FirstName")).sendKeys(firstName);
         driver.findElement(By.cssSelector("input#LastName")).sendKeys(lastName);
+
+        /*select = new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthDay]")));
+        select.selectByVisibleText("1");*/
+        new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthDay]"))).selectByVisibleText("11");
+        /* select = new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthMonth]")));
+        select.selectByVisibleText("May");*/
+        new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthMonth]"))).selectByVisibleText("December");
+        /*select = new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthYear]")));
+        select.selectByVisibleText("1980");*/
+        new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthYear]"))).selectByVisibleText("1993");
+
         driver.findElement(By.cssSelector("input#Email")).sendKeys(email);
         driver.findElement(By.cssSelector("input#Company")).sendKeys(companyName);
         driver.findElement(By.cssSelector("input#Password")).sendKeys(password);
         driver.findElement(By.cssSelector("input#ConfirmPassword")).sendKeys(password);
 
-        select = new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthDay]")));
-        select.selectByVisibleText("1");
-
-        select = new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthMonth]")));
-        select.selectByVisibleText("May");
-
-        select = new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthYear]")));
-        select.selectByVisibleText("1980");
-
         driver.findElement(By.cssSelector("button#register-button")).click();
 
         Assert.assertTrue(driver.getPageSource().contains("Your registration completed"));
+        //driver.findElement(By.xpath("//a[text()='Continue']")).click();
 
-        driver.findElement(By.xpath("//a[text()='Continue']")).click();*/
-
+        //Login
         driver.findElement(By.xpath("//a[text()='Log in']")).click();
-
         driver.findElement(By.cssSelector("input#Email")).sendKeys(email);
         driver.findElement(By.cssSelector("input#Password")).sendKeys(password);
         driver.findElement(By.xpath("//button[text()='Log in']")).click();
 
+        //My Account
         driver.findElement(By.xpath("//div[@class='header']//a[text()='My account']")).click();
-        //Assert.assertEquals((select.getFirstSelectedOption(By.xpath("select[name*=DateOfBirthDay]")).getText()),1);
-        Assert.assertEquals((select.getFirstSelectedOption().getText()),"May");
-        Assert.assertEquals((select.getFirstSelectedOption().getText()),1980);
+
+        Assert.assertEquals(driver.findElement(By.cssSelector("input#FirstName")).getAttribute("value"),firstName);
+        Assert.assertEquals(driver.findElement(By.cssSelector("input#LastName")).getAttribute("value"),lastName);
+
+        Assert.assertEquals((new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthDay]"))).getFirstSelectedOption().getText()),11);
+        Assert.assertEquals((new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthMonth]"))).getFirstSelectedOption().getText()),"December");
+        Assert.assertEquals((new Select(driver.findElement(By.cssSelector("select[name*=DateOfBirthYear]"))).getFirstSelectedOption().getText()),1993);
+
+        Assert.assertEquals(driver.findElement(By.cssSelector("input#Email")).getAttribute("value"),email);
+        Assert.assertEquals(driver.findElement(By.cssSelector("input#Company")).getAttribute("value"),companyName);
+    }
+
+    @Test
+    public void TC_04_HTML_DropdownList_01(){
+        driver.get("https://demo.nopcommerce.com");
+
     }
 }
