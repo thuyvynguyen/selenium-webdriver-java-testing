@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 public class Topic_06_Wait {
-    WebDriver driver; // declare variable driver, but drive is still null
+    WebDriver driver; // declare variable driver, but driver is still null
     WebDriverWait explicitWait;
     FluentWait<WebDriver> fluentWait; // Java Generic
 
