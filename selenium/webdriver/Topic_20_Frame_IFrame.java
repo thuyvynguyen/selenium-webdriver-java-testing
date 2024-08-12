@@ -33,7 +33,7 @@ public class Topic_20_Frame_IFrame {
         new Select(driver.findElement(By.cssSelector("select#RESULT_RadioButton-2"))).selectByVisibleText("Freshman");
         Thread.sleep(3000);
     }
-    @Test
+    @Test       
     public void TC_02(){
 
     }
