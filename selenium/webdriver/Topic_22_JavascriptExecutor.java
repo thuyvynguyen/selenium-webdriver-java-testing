@@ -5,15 +5,18 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
+import java.util.Random;
 
 public class Topic_22_JavascriptExecutor {
     WebDriver driver;
     JavascriptExecutor jsExecutor;
+    String addressEmail;
 
     @BeforeClass
     public void initialBrowser(){
@@ -21,6 +24,8 @@ public class Topic_22_JavascriptExecutor {
 
          //Ep kieu tuong minh
         jsExecutor = (JavascriptExecutor) driver;
+
+        addressEmail = "vyxinhdep" + new Random().nextInt() + "@gmail.com";
 
          driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
         driver.manage().window().maximize();
@@ -46,8 +51,55 @@ public class Topic_22_JavascriptExecutor {
         Thread.sleep(5000);
     }
     @Test
-    public void TC_02(){
-        driver.get("");
+    public void TC_02_TechPanda() throws  InterruptedException{
+        navigateToUrlByJS("http://live.techpanda.org/");
+        String techPandaDomain = (String) executeForBrowser("return document.domain;");
+        System.out.println(techPandaDomain);
+
+        Assert.assertEquals(techPandaDomain,"live.techpanda.org");
+
+        String homepageUrl = (String) executeForBrowser("return document.URL;");
+        System.out.println(homepageUrl);
+
+        Assert.assertEquals(homepageUrl,"http://live.techpanda.org/");
+
+        clickToElementByJS("//a[text()='Mobile']");
+
+        clickToElementByJS("//a[text()='Samsung Galaxy']/parent::h2/following-sibling::div[@class='actions']/button");
+
+        Assert.assertTrue(isExpectedTextInInnerText("Samsung Galaxy was added to your shopping cart."));
+
+        String innerText = (String) executeForBrowser("return document.documentElement.innerText;");
+        Assert.assertTrue(innerText.contains("Samsung Galaxy was added to your shopping cart."));
+
+        Assert.assertEquals(getElementTextByJS("//li[@class='success-msg']//span"),"Samsung Galaxy was added to your shopping cart.");
+
+        clickToElementByJS("//a[text()='Customer Service']");
+
+        String customerServiceTitle = (String) executeForBrowser("return document.title;");
+        System.out.println(customerServiceTitle);
+
+        Assert.assertEquals(customerServiceTitle,"Customer Service");
+
+        scrollToElementOnTop("//input[@id = 'newsletter']");
+        sendkeyToElementByJS("//input[@id = 'newsletter']",addressEmail);
+
+        Assert.assertEquals(getElementTextByJS("//li[@class='success-msg']//span"),"Thank you for your subscription.");
+
+        navigateToUrlByJS("https://www.youtube.com/");
+        String otherDomain = (String) executeForBrowser("return document.domain;");
+        System.out.println(otherDomain);
+
+        Assert.assertEquals(otherDomain,"www.youtube.com");
+    }
+
+    /*https://login.ubuntu.com/*/
+
+    public void TC_03_TechPanda() throws  InterruptedException{
+        navigateToUrlByJS("http://live.techpanda.org/index.php");
+
+
+
     }
 
     @AfterClass
@@ -94,6 +146,10 @@ public class Topic_22_JavascriptExecutor {
     public void clickToElementByJS(String locator) {
         jsExecutor.executeScript("arguments[0].click();", getElement(locator));
         sleepInSecond(3);
+    }
+
+    public String getElementTextByJS(String locator) {
+        return (String) jsExecutor.executeScript("arguments[0].textContent;", getElement(locator));
     }
 
     public void scrollToElementOnTop(String locator) {
